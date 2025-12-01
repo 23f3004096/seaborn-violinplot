@@ -33,8 +33,9 @@ sns.set_style("whitegrid")
 # Set context for presentation-ready text sizes
 sns.set_context("notebook", font_scale=1.2)
 
-# Create figure with specific size for 512x512 output
-plt.figure(figsize=(8, 8))
+# Create figure with specific size for exactly 512x512 output
+# Remove bbox_inches='tight' to maintain exact dimensions
+fig = plt.figure(figsize=(512/100, 512/100), dpi=100)
 
 # Create the violin plot
 sns.violinplot(
@@ -48,22 +49,24 @@ sns.violinplot(
 
 # Customize the plot
 plt.title('Customer Support Response Time Distribution', 
-          fontsize=16, 
+          fontsize=14, 
           fontweight='bold', 
-          pad=20)
+          pad=15)
 
-plt.xlabel('Support Channel', fontsize=12, fontweight='bold')
-plt.ylabel('Response Time (hours)', fontsize=12, fontweight='bold')
+plt.xlabel('Support Channel', fontsize=11, fontweight='bold')
+plt.ylabel('Response Time (hours)', fontsize=11, fontweight='bold')
 
 # Add a grid for better readability
 plt.grid(axis='y', alpha=0.3, linestyle='--')
 
-# Adjust layout to prevent label cutoff
+# Adjust layout
 plt.tight_layout()
 
-# Save the chart as PNG with exactly 512x512 pixels
-# figsize=(8,8) with dpi=64 gives 8*64 = 512 pixels
-plt.savefig('chart.png', dpi=64, bbox_inches='tight')
+# Save the chart as PNG with EXACTLY 512x512 pixels
+# Key: Remove bbox_inches='tight' to keep exact dimensions
+plt.savefig('chart.png', dpi=100)
+
+plt.close()
 
 print("Chart generated successfully: chart.png (512x512 pixels)")
 print("Violin plot shows response time distributions across support channels")
